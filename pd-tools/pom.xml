@@ -25,6 +25,7 @@
         <module>pd-tools-dozer</module>
         <module>pd-tools-xss</module>
         <module>pd-tools-j2cache</module>
+        <module>teststarter1</module>
     </modules>
     <dependencyManagement>
         <dependencies>

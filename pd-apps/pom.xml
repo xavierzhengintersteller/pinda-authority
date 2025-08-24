@@ -88,6 +88,11 @@
                 <artifactId>pd-tools-xss</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.itheima</groupId>
+                <artifactId>teststarter1</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
