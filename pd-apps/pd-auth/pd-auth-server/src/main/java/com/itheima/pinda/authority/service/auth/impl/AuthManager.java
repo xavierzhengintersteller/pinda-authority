@@ -15,6 +15,7 @@ import com.itheima.pinda.base.R;
 import com.itheima.pinda.dozer.DozerUtils;
 import com.itheima.pinda.exception.code.ExceptionCode;
 import lombok.extern.slf4j.Slf4j;
+import net.oschina.j2cache.CacheChannel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class AuthManager {
+    @Autowired
+    private CacheChannel cache;
     @Autowired
     private JwtTokenServerUtils jwtTokenServerUtils;
     @Autowired
@@ -55,6 +58,7 @@ public class AuthManager {
         List<Resource> resourceList =this.resourceService.
                 findVisibleResource(ResourceQueryDTO.builder().
                         userId(user.getId()).build());
+        log.info("当前用户资源权限为：" + resourceList);
         List<String> permissionsList = null;
         if(resourceList != null && resourceList.size() > 0){
             permissionsList = resourceList.stream().

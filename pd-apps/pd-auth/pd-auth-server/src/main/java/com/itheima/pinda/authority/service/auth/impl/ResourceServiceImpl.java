@@ -42,6 +42,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
             cache.set(CacheKey.USER_RESOURCE,
                     resourceQueryDTO.getUserId().toString(),
                     userResource);
+            // 打印日志
+            log.info("用户 [{}] 可访问资源写入缓存: {}", resourceQueryDTO.getUserId(), userResource);
         }
         return visibleResource;
     }
