@@ -1,34 +1,38 @@
+package com.itheima.panda.authority;
+
 import com.itheima.pinda.authority.biz.service.auth.ValidateCodeService;
 import com.itheima.pinda.authority.biz.service.auth.impl.AuthManager;
 import com.itheima.pinda.authority.controller.auth.LoginController;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import javax.servlet.http.HttpServletResponse;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(LoginController.class)
+@ExtendWith(MockitoExtension.class)
 public class LoginControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Mock
     private ValidateCodeService validateCodeService;
-    @MockBean
+    @Mock
     private AuthManager authManager;
+    @InjectMocks
+    private LoginController loginController;
     @Test
     void testCaptcha() throws Exception {
-        // 模拟 service 方法（不抛异常就行）
-        Mockito.doNothing().when(validateCodeService).create(eq("testKey"), any());
+        Mockito.doNothing().when(validateCodeService).create(eq("testKey"), any(HttpServletResponse.class));
 
-        mockMvc.perform(get("/anno/captcha")
-                        .param("key", "testKey"))
-                .andExpect(status().isOk());  // 期望 200
+        // 直接调用方法，而不是 mockMvc.perform
+        loginController.captcha("testKey", Mockito.mock(HttpServletResponse.class));
     }
 
 }

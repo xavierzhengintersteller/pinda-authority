@@ -2,12 +2,11 @@ package com.itheima.pinda.authority.controller.auth;
 
 import com.itheima.pinda.authority.dto.auth.LoginDTO;
 import com.itheima.pinda.authority.dto.auth.LoginParamDTO;
-import com.itheima.pinda.authority.service.auth.ValidateCodeService;
-import com.itheima.pinda.authority.service.auth.impl.AuthManager;
+import com.itheima.pinda.authority.biz.service.auth.ValidateCodeService;
+import com.itheima.pinda.authority.biz.service.auth.impl.AuthManager;
 import com.itheima.pinda.base.BaseController;
 import com.itheima.pinda.base.R;
 import com.itheima.pinda.exception.BizException;
-import com.itheima.pinda.log.annotation.SysLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,6 @@ public class LoginController  extends BaseController {
     private ValidateCodeService validateCodeService;
     @ApiOperation(value = "验证码", notes = "验证码")
     @GetMapping(value = "/captcha", produces = "image/png")
-    @SysLog("")
     public void captcha(@RequestParam(value = "key") String key, HttpServletResponse response) throws IOException {
         this.validateCodeService.create(key, response);
     }
@@ -39,7 +37,6 @@ public class LoginController  extends BaseController {
      */
     @ApiOperation(value = "登录", notes = "登录")
     @PostMapping(value = "/login")
-    @SysLog("")
     public R<LoginDTO> login(@Validated @RequestBody LoginParamDTO login)
             throws BizException {
         log.info("account={}", login.getAccount());

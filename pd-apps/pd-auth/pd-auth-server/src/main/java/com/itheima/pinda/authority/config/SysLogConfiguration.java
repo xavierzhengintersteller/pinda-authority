@@ -1,6 +1,6 @@
 package com.itheima.pinda.authority.config;
 
-import com.itheima.pinda.authority.service.common.OptLogService;
+import com.itheima.pinda.authority.biz.service.common.OptLogService;
 import com.itheima.pinda.log.entity.OptLogDTO;
 import com.itheima.pinda.log.event.SysLogListener;
 import org.springframework.context.annotation.Bean;
